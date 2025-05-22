@@ -1,5 +1,0 @@
-CREATE OR REPLACE TABLE lohitha.public.mep (
-    mep_id INT,
-    name STRING,
-    depart STRING
-);
