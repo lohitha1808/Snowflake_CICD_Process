@@ -3,3 +3,4 @@ CREATE OR REPLACE TABLE lohitha.public.mep (
     name STRING,
     depart STRING
 );
+
