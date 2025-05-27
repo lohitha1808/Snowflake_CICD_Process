@@ -1,0 +1,6 @@
+DELETE FROM lohitha.public.employee
+WHERE MEP_ID IN (
+    SELECT MEP_ID FROM lohitha.public.employee
+    ORDER BY MEP_ID
+    LIMIT 3
+);
