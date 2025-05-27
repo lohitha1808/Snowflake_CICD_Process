@@ -1,6 +1,0 @@
-INSERT INTO lohitha.public.mep (mep_id, name, depart) VALUES
-(11, 'Kiran', 'Support'),
-(12, 'Latha', 'R&D'),
-(13, 'Mohan', 'Admin'),
-(14, 'Neha', 'Training'),
-(15, 'Omkar', 'Legal');
