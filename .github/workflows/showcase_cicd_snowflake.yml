@@ -1,10 +1,7 @@
 name: Run Snowflake Queries from Files
 
 on:
-  workflow_dispatch: # Manual trigger
-  push:
-    branches:
-      - main  # or your desired branch
+  workflow_dispatch:
 
 jobs:
   run-sql:
@@ -14,12 +11,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install SnowSQL CLI
+      - name: Download SnowSQL
         run: |
           wget https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/1.2/linux_x86_64/snowsql-1.2.21-linux_x86_64.bash
-          bash snowsql-1.2.21-linux_x86_64.bash
+          bash snowsql-1.2.21-linux_x86_64.bash -y
 
-      - name: Run all SQL files from dbscripts folder
+      - name: Add SnowSQL to PATH
+        run: |
+          echo "$HOME/.snowsql" >> $GITHUB_PATH
+
+      - name: Run all SQL files from dbscripts
         env:
           SNOWSQL_ACCOUNT: ${{ secrets.SF_ACCOUNT }}
           SNOWSQL_USER: ${{ secrets.SF_USERNAME }}
@@ -31,5 +32,5 @@ jobs:
         run: |
           for file in ./dbscripts/*.sql; do
             echo "Running $file..."
-            ~/bin/snowsql -f "$file" || exit 1
+            snowsql -f "$file" || exit 1
           done
